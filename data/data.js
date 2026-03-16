@@ -5,7 +5,7 @@ const USDD_HISTORY = [
     "balances": {
       "HTX": {
         "Tron": 18115672,
-        "ETH": null,
+        "ETH": 2097961,
         "BNB": 3196939
       },
       "Gate": {
@@ -40,7 +40,7 @@ const USDD_HISTORY = [
       },
       "Bitmart": {
         "Tron": 21318,
-        "ETH": 50000,
+        "ETH": 0,
         "BNB": 33470
       }
     }

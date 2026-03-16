@@ -93,43 +93,65 @@ CHAIN_LIST    = ["Tron", "ETH", "BNB"]
 
 # ─── 链上查询函数 ──────────────────────────────────────────────────────────────
 
-def get_tron_usdd_balance(address: str) -> float | None:
-    """通过 Trongrid API 获取 Tron 地址的 USDD 余额"""
-    try:
-        url = f"{TRONGRID}/v1/accounts/{address}"
-        resp = requests.get(url, headers={"Accept": "application/json"}, timeout=15)
-        data = resp.json()
-        if not data.get("data"):
+def get_tron_usdd_balance(address: str, retries: int = 3) -> float | None:
+    """通过 Trongrid API 获取 Tron 地址的 USDD 余额（自动重试）"""
+    for attempt in range(1, retries + 1):
+        try:
+            url = f"{TRONGRID}/v1/accounts/{address}"
+            resp = requests.get(url, headers={"Accept": "application/json"}, timeout=15)
+            data = resp.json()
+            if not data.get("data"):
+                return 0.0
+            account = data["data"][0]
+            contract = USDD_CONTRACT["Tron"]
+            for token in account.get("trc20", []):
+                if contract in token:
+                    return int(token[contract]) / 1e18
             return 0.0
-        account = data["data"][0]
-        contract = USDD_CONTRACT["Tron"]
-        for token in account.get("trc20", []):
-            if contract in token:
-                return int(token[contract]) / 1e18
-        return 0.0
-    except Exception as e:
-        print(f"  ⚠️  Tron {address[:10]}… error: {e}")
-        return None
+        except Exception as e:
+            if attempt < retries:
+                print(f"  ⚠️  Tron {address[:10]}… 第{attempt}次失败，重试中…")
+                time.sleep(2)
+            else:
+                print(f"  ❌  Tron {address[:10]}… 全部重试失败: {e}")
+                return None
 
 
-def get_evm_usdd_balance(chain: str, wallet: str) -> float | None:
-    """通过公共 RPC 获取 ETH/BSC 地址的 USDD 余额（无需 API Key）"""
-    try:
-        contract = USDD_CONTRACT[chain]
-        # balanceOf(address) selector = 0x70a08231
-        padded = wallet[2:].lower().zfill(64)
-        payload = {
-            "jsonrpc": "2.0",
-            "method":  "eth_call",
-            "params":  [{"to": contract, "data": "0x70a08231" + padded}, "latest"],
-            "id":      1,
-        }
-        resp = requests.post(RPC[chain], json=payload, timeout=15)
-        result = resp.json().get("result", "0x0")
-        return int(result, 16) / 1e18
-    except Exception as e:
-        print(f"  ⚠️  {chain} {wallet[:10]}… error: {e}")
-        return None
+def get_evm_usdd_balance(chain: str, wallet: str, retries: int = 3) -> float | None:
+    """通过公共 RPC 获取 ETH/BSC 地址的 USDD 余额（自动重试，备用节点）"""
+    # 备用 RPC 节点列表
+    rpc_list = {
+        "ETH": [
+            "https://eth.llamarpc.com",
+            "https://rpc.ankr.com/eth",
+            "https://ethereum.publicnode.com",
+        ],
+        "BNB": [
+            "https://bsc-dataseed.binance.org/",
+            "https://bsc-dataseed1.defibit.io/",
+            "https://bsc-dataseed1.ninicoin.io/",
+        ],
+    }
+    contract = USDD_CONTRACT[chain]
+    padded = wallet[2:].lower().zfill(64)
+    payload = {
+        "jsonrpc": "2.0",
+        "method":  "eth_call",
+        "params":  [{"to": contract, "data": "0x70a08231" + padded}, "latest"],
+        "id":      1,
+    }
+    for attempt, rpc in enumerate(rpc_list[chain], 1):
+        try:
+            resp = requests.post(rpc, json=payload, timeout=15)
+            result = resp.json().get("result", "0x0")
+            return int(result, 16) / 1e18
+        except Exception as e:
+            if attempt < len(rpc_list[chain]):
+                print(f"  ⚠️  {chain} {wallet[:10]}… RPC{attempt} 失败，切换备用节点…")
+                time.sleep(1)
+            else:
+                print(f"  ❌  {chain} {wallet[:10]}… 全部节点失败: {e}")
+                return None
 
 
 # ─── 主逻辑 ───────────────────────────────────────────────────────────────────
