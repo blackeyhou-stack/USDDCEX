@@ -5,7 +5,7 @@ const USDD_HISTORY = [
     "balances": {
       "HTX": {
         "Tron": 18115672,
-        "ETH": 5431961,
+        "ETH": null,
         "BNB": 3196939
       },
       "Gate": {
@@ -30,7 +30,7 @@ const USDD_HISTORY = [
       },
       "Poloniex": {
         "Tron": 643664,
-        "ETH": 184975,
+        "ETH": null,
         "BNB": null
       },
       "Kraken": {
