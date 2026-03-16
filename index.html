@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USDD CEX Balance Tracker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      padding: 24px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #1a1a2e;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead tr {
+      background: #1a1a2e;
+      color: #fff;
+    }
+
+    thead th {
+      padding: 12px 16px;
+      text-align: right;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    thead th:first-child,
+    thead th:nth-child(2) {
+      text-align: center;
+    }
+
+    /* Date group separator */
+    tr.date-start td {
+      border-top: 2px solid #e0e4ef;
+    }
+
+    tbody td {
+      padding: 9px 16px;
+      text-align: right;
+      border-bottom: 1px solid #f0f0f0;
+      white-space: nowrap;
+    }
+
+    .td-date {
+      text-align: center !important;
+      font-weight: 700;
+      font-size: 13px;
+      color: #1a1a2e;
+      background: #f7f8fc;
+      vertical-align: middle;
+      border-right: 1px solid #e0e4ef;
+    }
+
+    .td-chain {
+      text-align: center !important;
+      font-weight: 600;
+      color: #555;
+      background: #fafafa;
+      border-right: 1px solid #eee;
+    }
+
+    .td-chain.tron  { color: #e8142b; }
+    .td-chain.eth   { color: #627eea; }
+    .td-chain.bnb   { color: #f0b90b; }
+    .td-chain.total { color: #1a1a2e; background: #eef2ff; }
+
+    tr.row-total td {
+      background: #eef2ff;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    td.null-val { color: #bbb; }
+
+    td.num { font-variant-numeric: tabular-nums; }
+
+    .no-data {
+      padding: 48px;
+      text-align: center;
+      color: #aaa;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📊 USDD CEX Balance Tracker</h1>
+  <div class="meta" id="meta">加载中…</div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:center">日期</th>
+          <th style="text-align:center">链</th>
+          <th>HTX</th>
+          <th>Gate</th>
+          <th>Kucoin</th>
+          <th>Bybit</th>
+          <th>Mexc</th>
+          <th>Poloniex</th>
+          <th>Kraken</th>
+          <th>Bitmart</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="no-data" id="no-data" style="display:none">
+      暂无数据，请先运行 <code>python fetch_data.py</code>
+    </div>
+  </div>
+
+  <!-- 由 fetch_data.py 自动生成 -->
+  <script src="data/data.js"></script>
+  <script>
+    const EXCHANGES = ["HTX","Gate","Kucoin","Bybit","Mexc","Poloniex","Kraken","Bitmart"];
+    const CHAINS    = ["Tron","ETH","BNB"];
+
+    function fmt(v) {
+      if (v === null || v === undefined) return { text: "－", cls: "null-val" };
+      if (v === 0) return { text: "－", cls: "null-val" };
+      return { text: Number(v).toLocaleString(), cls: "num" };
+    }
+
+    function render(history) {
+      const tbody = document.getElementById("tbody");
+      if (!history || history.length === 0) {
+        document.getElementById("no-data").style.display = "block";
+        document.getElementById("meta").textContent = "无数据";
+        return;
+      }
+
+      document.getElementById("meta").textContent =
+        `最新更新：${history[0].date}　共 ${history.length} 天记录`;
+
+      let html = "";
+
+      history.forEach((entry, idx) => {
+        const { date, balances } = entry;
+
+        // 计算每个交易所的跨链合计
+        const totals = {};
+        EXCHANGES.forEach(ex => {
+          let sum = 0, allNull = true;
+          CHAINS.forEach(chain => {
+            const v = balances[ex]?.[chain];
+            if (v !== null && v !== undefined) { sum += v; allNull = false; }
+          });
+          totals[ex] = allNull ? null : sum;
+        });
+
+        CHAINS.forEach((chain, ci) => {
+          const isFirst   = ci === 0;
+          const rowCls    = isFirst ? " class=\"date-start\"" : "";
+          const chainCls  = chain.toLowerCase();
+
+          let row = `<tr${rowCls}>`;
+
+          // 日期单元格：只在第一行显示，跨 4 行 (Tron/ETH/BNB/Total)
+          if (isFirst) {
+            row += `<td class="td-date" rowspan="4">${date}</td>`;
+          }
+
+          row += `<td class="td-chain ${chainCls}">${chain}</td>`;
+
+          EXCHANGES.forEach(ex => {
+            const { text, cls } = fmt(balances[ex]?.[chain]);
+            row += `<td class="${cls}">${text}</td>`;
+          });
+
+          row += `</tr>`;
+          html += row;
+        });
+
+        // Total 行
+        let totalRow = `<tr class="row-total">`;
+        totalRow += `<td class="td-chain total">Total</td>`;
+        EXCHANGES.forEach(ex => {
+          const { text, cls } = fmt(totals[ex]);
+          totalRow += `<td class="${cls}">${text}</td>`;
+        });
+        totalRow += `</tr>`;
+        html += totalRow;
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    // USDD_HISTORY 由 data/data.js 注入
+    if (typeof USDD_HISTORY !== "undefined") {
+      render(USDD_HISTORY);
+    } else {
+      document.getElementById("no-data").style.display = "block";
+      document.getElementById("meta").textContent = "未找到 data/data.js，请先运行 fetch_data.py";
+    }
+  </script>
+</body>
+</html>
