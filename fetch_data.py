@@ -12,7 +12,7 @@ from datetime import datetime
 
 # ─── USDD 合约地址 ────────────────────────────────────────────────────────────
 USDD_CONTRACT = {
-    "Tron": "TPYmHEhy5n8TCEfYGqW2rPxsghSfzghPDn",
+    "Tron": "TXDk8mbtRbXeYuMNS83CfKPaYYT8XWv9Hz",
     "ETH":  "0x4f8e5de400de08b164e7421b3ee387f461becd1a",
     "BNB":  "0x45E51bc23D592EB2DBA86da3985299f7895d66Ba",
 }

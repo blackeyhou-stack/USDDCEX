@@ -1,0 +1,47 @@
+[
+  {
+    "date": "2026-03-16",
+    "balances": {
+      "HTX": {
+        "Tron": 18115672,
+        "ETH": 0,
+        "BNB": 3196939
+      },
+      "Gate": {
+        "Tron": 2496171,
+        "ETH": null,
+        "BNB": null
+      },
+      "Kucoin": {
+        "Tron": 3887752,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bybit": {
+        "Tron": 1734299,
+        "ETH": null,
+        "BNB": null
+      },
+      "Mexc": {
+        "Tron": 2211613,
+        "ETH": null,
+        "BNB": null
+      },
+      "Poloniex": {
+        "Tron": 643664,
+        "ETH": 0,
+        "BNB": null
+      },
+      "Kraken": {
+        "Tron": 164389,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bitmart": {
+        "Tron": 21318,
+        "ETH": 0,
+        "BNB": 33470
+      }
+    }
+  }
+]
