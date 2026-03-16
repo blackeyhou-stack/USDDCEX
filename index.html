@@ -27,6 +27,91 @@
       margin-bottom: 20px;
     }
 
+    /* ── 汇总卡片区域 ── */
+    .summary-section {
+      margin-bottom: 24px;
+    }
+
+    .summary-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 12px;
+    }
+
+    .summary-total {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 10px;
+      padding: 14px 24px;
+      margin-bottom: 16px;
+    }
+
+    .summary-total .label { font-size: 13px; opacity: .7; }
+    .summary-total .value { font-size: 26px; font-weight: 800; letter-spacing: -.5px; }
+    .summary-total .unit  { font-size: 13px; opacity: .6; }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ex-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.07);
+      padding: 14px 18px;
+      min-width: 140px;
+      flex: 1 1 140px;
+      max-width: 200px;
+    }
+
+    .ex-card .ex-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 6px;
+    }
+
+    .ex-card .ex-amount {
+      font-size: 17px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* 进度条 */
+    .bar-bg {
+      height: 5px;
+      background: #eef0f5;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #4f6ef7, #7c3aed);
+      transition: width .4s ease;
+    }
+
+    .ex-pct {
+      font-size: 12px;
+      color: #999;
+      font-weight: 600;
+    }
+
+    /* ── 表格区域 ── */
     .card {
       background: #fff;
       border-radius: 12px;
@@ -53,14 +138,9 @@
     }
 
     thead th:first-child,
-    thead th:nth-child(2) {
-      text-align: center;
-    }
+    thead th:nth-child(2) { text-align: center; }
 
-    /* Date group separator */
-    tr.date-start td {
-      border-top: 2px solid #e0e4ef;
-    }
+    tr.date-start td { border-top: 2px solid #e0e4ef; }
 
     tbody td {
       padding: 9px 16px;
@@ -99,7 +179,6 @@
     }
 
     td.null-val { color: #bbb; }
-
     td.num { font-variant-numeric: tabular-nums; }
 
     .no-data {
@@ -114,6 +193,18 @@
   <h1>📊 USDD CEX Balance Tracker</h1>
   <div class="meta" id="meta">加载中…</div>
 
+  <!-- 汇总卡片 -->
+  <div class="summary-section" id="summary-section" style="display:none">
+    <div class="summary-title">最新数据汇总</div>
+    <div class="summary-total">
+      <span class="label">全部交易所合计</span>
+      <span class="value" id="grand-total">—</span>
+      <span class="unit">USDD</span>
+    </div>
+    <div class="cards" id="ex-cards"></div>
+  </div>
+
+  <!-- 历史明细表格 -->
   <div class="card">
     <table>
       <thead>
@@ -137,7 +228,6 @@
     </div>
   </div>
 
-  <!-- 由 fetch_data.py 自动生成 -->
   <script src="data/data.js"></script>
   <script>
     const EXCHANGES = ["HTX","Gate","Kucoin","Bybit","Mexc","Poloniex","Kraken","Bitmart"];
@@ -149,59 +239,76 @@
       return { text: Number(v).toLocaleString(), cls: "num" };
     }
 
-    function render(history) {
-      const tbody = document.getElementById("tbody");
-      if (!history || history.length === 0) {
-        document.getElementById("no-data").style.display = "block";
-        document.getElementById("meta").textContent = "无数据";
-        return;
-      }
-
-      document.getElementById("meta").textContent =
-        `最新更新：${history[0].date}　共 ${history.length} 天记录`;
-
-      let html = "";
-
-      history.forEach((entry, idx) => {
-        const { date, balances } = entry;
-
-        // 计算每个交易所的跨链合计
-        const totals = {};
-        EXCHANGES.forEach(ex => {
-          let sum = 0, allNull = true;
-          CHAINS.forEach(chain => {
-            const v = balances[ex]?.[chain];
-            if (v !== null && v !== undefined) { sum += v; allNull = false; }
-          });
-          totals[ex] = allNull ? null : sum;
+    // 计算各交易所跨链合计
+    function calcTotals(balances) {
+      const totals = {};
+      EXCHANGES.forEach(ex => {
+        let sum = 0, allNull = true;
+        CHAINS.forEach(chain => {
+          const v = balances[ex]?.[chain];
+          if (v !== null && v !== undefined) { sum += v; allNull = false; }
         });
+        totals[ex] = allNull ? null : sum;
+      });
+      return totals;
+    }
+
+    // 渲染顶部汇总卡片（取最新一天数据）
+    function renderSummary(latest) {
+      const totals = calcTotals(latest.balances);
+      const grandTotal = Object.values(totals).reduce((acc, v) => acc + (v || 0), 0);
+
+      document.getElementById("grand-total").textContent = grandTotal.toLocaleString();
+      document.getElementById("summary-section").style.display = "block";
+
+      const colors = [
+        "#4f6ef7","#7c3aed","#0ea5e9","#10b981",
+        "#f59e0b","#ef4444","#8b5cf6","#06b6d4"
+      ];
+
+      const cardsHtml = EXCHANGES.map((ex, i) => {
+        const val = totals[ex] || 0;
+        const pct = grandTotal > 0 ? (val / grandTotal * 100) : 0;
+        const barW = pct.toFixed(1);
+        const color = colors[i % colors.length];
+        return `
+          <div class="ex-card">
+            <div class="ex-name">${ex}</div>
+            <div class="ex-amount">${val > 0 ? val.toLocaleString() : "－"}</div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width:${barW}%;background:${color}"></div>
+            </div>
+            <div class="ex-pct">${pct > 0 ? pct.toFixed(2) + "%" : "－"}</div>
+          </div>`;
+      }).join("");
+
+      document.getElementById("ex-cards").innerHTML = cardsHtml;
+    }
+
+    // 渲染历史表格
+    function renderTable(history) {
+      let html = "";
+      history.forEach(entry => {
+        const { date, balances } = entry;
+        const totals = calcTotals(balances);
 
         CHAINS.forEach((chain, ci) => {
-          const isFirst   = ci === 0;
-          const rowCls    = isFirst ? " class=\"date-start\"" : "";
-          const chainCls  = chain.toLowerCase();
-
+          const isFirst  = ci === 0;
+          const rowCls   = isFirst ? ' class="date-start"' : "";
+          const chainCls = chain.toLowerCase();
           let row = `<tr${rowCls}>`;
-
-          // 日期单元格：只在第一行显示，跨 4 行 (Tron/ETH/BNB/Total)
-          if (isFirst) {
-            row += `<td class="td-date" rowspan="4">${date}</td>`;
-          }
-
+          if (isFirst) row += `<td class="td-date" rowspan="4">${date}</td>`;
           row += `<td class="td-chain ${chainCls}">${chain}</td>`;
-
           EXCHANGES.forEach(ex => {
             const { text, cls } = fmt(balances[ex]?.[chain]);
             row += `<td class="${cls}">${text}</td>`;
           });
-
           row += `</tr>`;
           html += row;
         });
 
         // Total 行
-        let totalRow = `<tr class="row-total">`;
-        totalRow += `<td class="td-chain total">Total</td>`;
+        let totalRow = `<tr class="row-total"><td class="td-chain total">Total</td>`;
         EXCHANGES.forEach(ex => {
           const { text, cls } = fmt(totals[ex]);
           totalRow += `<td class="${cls}">${text}</td>`;
@@ -210,10 +317,21 @@
         html += totalRow;
       });
 
-      tbody.innerHTML = html;
+      document.getElementById("tbody").innerHTML = html;
     }
 
-    // USDD_HISTORY 由 data/data.js 注入
+    function render(history) {
+      if (!history || history.length === 0) {
+        document.getElementById("no-data").style.display = "block";
+        document.getElementById("meta").textContent = "无数据";
+        return;
+      }
+      document.getElementById("meta").textContent =
+        `最新更新：${history[0].date}　共 ${history.length} 天记录`;
+      renderSummary(history[0]);
+      renderTable(history);
+    }
+
     if (typeof USDD_HISTORY !== "undefined") {
       render(USDD_HISTORY);
     } else {
