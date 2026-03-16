@@ -19,7 +19,7 @@ USDD_CONTRACT = {
 
 # ─── RPC 节点 ─────────────────────────────────────────────────────────────────
 RPC = {
-    "ETH": "https://cloudflare-eth.com",
+    "ETH": "https://eth.llamarpc.com",
     "BNB": "https://bsc-dataseed.binance.org/",
 }
 TRONGRID = "https://api.trongrid.io"
