@@ -4,12 +4,12 @@ const USDD_HISTORY = [
     "date": "2026-03-16",
     "balances": {
       "HTX": {
-        "Tron": 18115672,
-        "ETH": 2097961,
-        "BNB": 3196939
+        "Tron": 18115812,
+        "ETH": 5431961,
+        "BNB": 3196930
       },
       "Gate": {
-        "Tron": 2496171,
+        "Tron": 2516340,
         "ETH": null,
         "BNB": null
       },
@@ -30,7 +30,7 @@ const USDD_HISTORY = [
       },
       "Poloniex": {
         "Tron": 643664,
-        "ETH": 184975,
+        "ETH": 170000,
         "BNB": null
       },
       "Kraken": {
