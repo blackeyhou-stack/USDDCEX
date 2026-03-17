@@ -14,53 +14,56 @@
       padding: 24px;
     }
 
-    h1 {
-      font-size: 22px;
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #1a1a2e; }
+    .meta { font-size: 13px; color: #888; margin-bottom: 20px; }
+
+    /* ── 变化标签 ── */
+    .chg {
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 4px;
-      color: #1a1a2e;
+      border-radius: 4px;
+      padding: 1px 5px;
+      display: inline-block;
+      font-variant-numeric: tabular-nums;
     }
+    .chg.pos { color: #16a34a; background: #dcfce7; }
+    .chg.neg { color: #dc2626; background: #fee2e2; }
+    .chg.neu { color: #999;    background: #f3f4f6; }
 
-    .meta {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 20px;
-    }
-
-    /* ── 汇总卡片区域 ── */
-    .summary-section {
-      margin-bottom: 24px;
-    }
-
-    .summary-title {
-      font-size: 13px;
+    /* 表格单元格内的绝对变化（小字） */
+    .cell-change {
+      display: block;
+      font-size: 11px;
       font-weight: 600;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      margin-bottom: 12px;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+    .cell-change.pos { color: #16a34a; }
+    .cell-change.neg { color: #dc2626; }
+
+    /* ── 汇总区域 ── */
+    .summary-section { margin-bottom: 24px; }
+    .summary-title {
+      font-size: 13px; font-weight: 600; color: #888;
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: 12px;
     }
 
     .summary-total {
       display: inline-flex;
-      align-items: baseline;
-      gap: 8px;
+      align-items: center;
+      gap: 12px;
       background: #1a1a2e;
       color: #fff;
       border-radius: 10px;
       padding: 14px 24px;
       margin-bottom: 16px;
     }
-
     .summary-total .label { font-size: 13px; opacity: .7; }
     .summary-total .value { font-size: 26px; font-weight: 800; letter-spacing: -.5px; }
     .summary-total .unit  { font-size: 13px; opacity: .6; }
+    .summary-total .chg   { align-self: center; }
 
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .cards { display: flex; flex-wrap: wrap; gap: 10px; }
 
     .ex-card {
       background: #fff;
@@ -71,121 +74,72 @@
       flex: 1 1 140px;
       max-width: 200px;
     }
-
     .ex-card .ex-name {
-      font-size: 12px;
-      font-weight: 700;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      margin-bottom: 6px;
+      font-size: 12px; font-weight: 700; color: #888;
+      text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px;
     }
-
     .ex-card .ex-amount {
-      font-size: 17px;
-      font-weight: 800;
-      color: #1a1a2e;
-      margin-bottom: 6px;
-      font-variant-numeric: tabular-nums;
+      font-size: 17px; font-weight: 800; color: #1a1a2e;
+      font-variant-numeric: tabular-nums; margin-bottom: 4px;
     }
-
-    /* 进度条 */
+    .ex-card .ex-chg-row {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+    }
     .bar-bg {
-      height: 5px;
-      background: #eef0f5;
-      border-radius: 99px;
-      overflow: hidden;
-      margin-bottom: 4px;
+      height: 5px; background: #eef0f5; border-radius: 99px;
+      overflow: hidden; margin-bottom: 4px;
     }
-
     .bar-fill {
-      height: 100%;
-      border-radius: 99px;
+      height: 100%; border-radius: 99px;
       background: linear-gradient(90deg, #4f6ef7, #7c3aed);
       transition: width .4s ease;
     }
+    .ex-pct { font-size: 12px; color: #999; font-weight: 600; }
 
-    .ex-pct {
-      font-size: 12px;
-      color: #999;
-      font-weight: 600;
-    }
-
-    /* ── 表格区域 ── */
+    /* ── 表格 ── */
     .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
-      overflow: auto;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08); overflow: auto;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
-    thead tr {
-      background: #1a1a2e;
-      color: #fff;
-    }
-
+    thead tr { background: #1a1a2e; color: #fff; }
     thead th {
-      padding: 12px 16px;
-      text-align: right;
-      font-weight: 600;
-      white-space: nowrap;
+      padding: 12px 16px; text-align: right;
+      font-weight: 600; white-space: nowrap;
     }
-
-    thead th:first-child,
-    thead th:nth-child(2) { text-align: center; }
+    thead th:first-child, thead th:nth-child(2) { text-align: center; }
 
     tr.date-start td { border-top: 2px solid #e0e4ef; }
 
     tbody td {
-      padding: 9px 16px;
-      text-align: right;
-      border-bottom: 1px solid #f0f0f0;
-      white-space: nowrap;
+      padding: 8px 16px; text-align: right;
+      border-bottom: 1px solid #f0f0f0; white-space: nowrap;
+      vertical-align: middle;
     }
 
     .td-date {
-      text-align: center !important;
-      font-weight: 700;
-      font-size: 13px;
-      color: #1a1a2e;
-      background: #f7f8fc;
-      vertical-align: middle;
+      text-align: center !important; font-weight: 700; font-size: 13px;
+      color: #1a1a2e; background: #f7f8fc; vertical-align: middle;
       border-right: 1px solid #e0e4ef;
     }
-
     .td-chain {
-      text-align: center !important;
-      font-weight: 600;
-      color: #555;
-      background: #fafafa;
-      border-right: 1px solid #eee;
+      text-align: center !important; font-weight: 600; color: #555;
+      background: #fafafa; border-right: 1px solid #eee;
     }
-
     .td-chain.tron  { color: #e8142b; }
     .td-chain.eth   { color: #627eea; }
     .td-chain.bnb   { color: #f0b90b; }
     .td-chain.total { color: #1a1a2e; background: #eef2ff; }
 
-    tr.row-total td {
-      background: #eef2ff;
-      font-weight: 700;
-      color: #1a1a2e;
-    }
+    tr.row-total td { background: #eef2ff; font-weight: 700; color: #1a1a2e; }
 
     td.null-val { color: #bbb; }
     td.num { font-variant-numeric: tabular-nums; }
 
     .no-data {
-      padding: 48px;
-      text-align: center;
-      color: #aaa;
-      font-size: 15px;
+      padding: 48px; text-align: center; color: #aaa; font-size: 15px;
     }
   </style>
 </head>
@@ -193,32 +147,25 @@
   <h1>📊 USDD CEX Balance Tracker</h1>
   <div class="meta" id="meta">加载中…</div>
 
-  <!-- 汇总卡片 -->
   <div class="summary-section" id="summary-section" style="display:none">
     <div class="summary-title">最新数据汇总</div>
     <div class="summary-total">
       <span class="label">全部交易所合计</span>
       <span class="value" id="grand-total">—</span>
       <span class="unit">USDD</span>
+      <span id="grand-total-chg"></span>
     </div>
     <div class="cards" id="ex-cards"></div>
   </div>
 
-  <!-- 历史明细表格 -->
   <div class="card">
     <table>
       <thead>
         <tr>
           <th style="text-align:center">日期</th>
           <th style="text-align:center">链</th>
-          <th>HTX</th>
-          <th>Gate</th>
-          <th>Kucoin</th>
-          <th>Bybit</th>
-          <th>Mexc</th>
-          <th>Poloniex</th>
-          <th>Kraken</th>
-          <th>Bitmart</th>
+          <th>HTX</th><th>Gate</th><th>Kucoin</th><th>Bybit</th>
+          <th>Mexc</th><th>Poloniex</th><th>Kraken</th><th>Bitmart</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -232,14 +179,37 @@
   <script>
     const EXCHANGES = ["HTX","Gate","Kucoin","Bybit","Mexc","Poloniex","Kraken","Bitmart"];
     const CHAINS    = ["Tron","ETH","BNB"];
+    const CARD_COLORS = ["#4f6ef7","#7c3aed","#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#06b6d4"];
 
+    /* ── 格式化函数 ── */
     function fmt(v) {
-      if (v === null || v === undefined) return { text: "－", cls: "null-val" };
-      if (v === 0) return { text: "－", cls: "null-val" };
+      if (v === null || v === undefined || v === 0)
+        return { text: "－", cls: "null-val" };
       return { text: Number(v).toLocaleString(), cls: "num" };
     }
 
-    // 计算各交易所跨链合计
+    // 百分比变化标签 HTML
+    function pctChgHtml(today, yesterday) {
+      if (!today || !yesterday) return "";
+      const pct = (today - yesterday) / yesterday * 100;
+      if (!isFinite(pct)) return "";
+      const sign  = pct >= 0 ? "+" : "";
+      const cls   = pct > 0 ? "pos" : pct < 0 ? "neg" : "neu";
+      return `<span class="chg ${cls}">${sign}${pct.toFixed(4)}%</span>`;
+    }
+
+    // 绝对值变化（表格单元格内小字）
+    function absChgHtml(today, yesterday) {
+      if (today === null || today === undefined || today === 0) return "";
+      if (yesterday === null || yesterday === undefined || yesterday === 0) return "";
+      const diff = today - yesterday;
+      if (diff === 0) return "";
+      const sign = diff > 0 ? "+" : "";
+      const cls  = diff > 0 ? "pos" : "neg";
+      return `<span class="cell-change ${cls}">${sign}${diff.toLocaleString()}</span>`;
+    }
+
+    /* ── 计算跨链合计 ── */
     function calcTotals(balances) {
       const totals = {};
       EXCHANGES.forEach(ex => {
@@ -253,30 +223,32 @@
       return totals;
     }
 
-    // 渲染顶部汇总卡片（取最新一天数据）
-    function renderSummary(latest) {
-      const totals = calcTotals(latest.balances);
-      const grandTotal = Object.values(totals).reduce((acc, v) => acc + (v || 0), 0);
+    /* ── 顶部汇总卡片 ── */
+    function renderSummary(latest, prev) {
+      const totals     = calcTotals(latest.balances);
+      const prevTotals = prev ? calcTotals(prev.balances) : null;
+      const grandTotal = Object.values(totals).reduce((a, v) => a + (v || 0), 0);
+      const prevGrand  = prevTotals
+        ? Object.values(prevTotals).reduce((a, v) => a + (v || 0), 0) : 0;
 
       document.getElementById("grand-total").textContent = grandTotal.toLocaleString();
+      document.getElementById("grand-total-chg").innerHTML =
+        prevGrand ? pctChgHtml(grandTotal, prevGrand) : "";
       document.getElementById("summary-section").style.display = "block";
 
-      const colors = [
-        "#4f6ef7","#7c3aed","#0ea5e9","#10b981",
-        "#f59e0b","#ef4444","#8b5cf6","#06b6d4"
-      ];
-
       const cardsHtml = EXCHANGES.map((ex, i) => {
-        const val = totals[ex] || 0;
-        const pct = grandTotal > 0 ? (val / grandTotal * 100) : 0;
-        const barW = pct.toFixed(1);
-        const color = colors[i % colors.length];
+        const val     = totals[ex] || 0;
+        const prevVal = prevTotals?.[ex] || 0;
+        const pct     = grandTotal > 0 ? (val / grandTotal * 100) : 0;
+        const color   = CARD_COLORS[i % CARD_COLORS.length];
+        const chgHtml = prevVal ? pctChgHtml(val, prevVal) : "";
         return `
           <div class="ex-card">
             <div class="ex-name">${ex}</div>
             <div class="ex-amount">${val > 0 ? val.toLocaleString() : "－"}</div>
+            <div class="ex-chg-row">${chgHtml}</div>
             <div class="bar-bg">
-              <div class="bar-fill" style="width:${barW}%;background:${color}"></div>
+              <div class="bar-fill" style="width:${pct.toFixed(1)}%;background:${color}"></div>
             </div>
             <div class="ex-pct">${pct > 0 ? pct.toFixed(2) + "%" : "－"}</div>
           </div>`;
@@ -285,33 +257,43 @@
       document.getElementById("ex-cards").innerHTML = cardsHtml;
     }
 
-    // 渲染历史表格
+    /* ── 历史表格 ── */
     function renderTable(history) {
       let html = "";
-      history.forEach(entry => {
+      history.forEach((entry, idx) => {
         const { date, balances } = entry;
-        const totals = calcTotals(balances);
+        const totals     = calcTotals(balances);
+        const prevEntry  = history[idx + 1];
+        const prevBal    = prevEntry?.balances;
+        const prevTotals = prevBal ? calcTotals(prevBal) : null;
 
         CHAINS.forEach((chain, ci) => {
           const isFirst  = ci === 0;
-          const rowCls   = isFirst ? ' class="date-start"' : "";
           const chainCls = chain.toLowerCase();
-          let row = `<tr${rowCls}>`;
+          let row = `<tr${isFirst ? ' class="date-start"' : ""}>`;
           if (isFirst) row += `<td class="td-date" rowspan="4">${date}</td>`;
           row += `<td class="td-chain ${chainCls}">${chain}</td>`;
+
           EXCHANGES.forEach(ex => {
-            const { text, cls } = fmt(balances[ex]?.[chain]);
-            row += `<td class="${cls}">${text}</td>`;
+            const val  = balances[ex]?.[chain];
+            const prev = prevBal?.[ex]?.[chain];
+            const { text, cls } = fmt(val);
+            const chg  = absChgHtml(val, prev);
+            row += `<td class="${cls}">${text}${chg}</td>`;
           });
+
           row += `</tr>`;
           html += row;
         });
 
-        // Total 行
+        // Total 行（含百分比变化）
         let totalRow = `<tr class="row-total"><td class="td-chain total">Total</td>`;
         EXCHANGES.forEach(ex => {
-          const { text, cls } = fmt(totals[ex]);
-          totalRow += `<td class="${cls}">${text}</td>`;
+          const val  = totals[ex];
+          const prev = prevTotals?.[ex];
+          const { text, cls } = fmt(val);
+          const chg  = (val && prev) ? pctChgHtml(val, prev) : "";
+          totalRow += `<td class="${cls}">${text}${chg ? `<br>${chg}` : ""}</td>`;
         });
         totalRow += `</tr>`;
         html += totalRow;
@@ -320,6 +302,7 @@
       document.getElementById("tbody").innerHTML = html;
     }
 
+    /* ── 主入口 ── */
     function render(history) {
       if (!history || history.length === 0) {
         document.getElementById("no-data").style.display = "block";
@@ -328,7 +311,7 @@
       }
       document.getElementById("meta").textContent =
         `最新更新：${history[0].date}　共 ${history.length} 天记录`;
-      renderSummary(history[0]);
+      renderSummary(history[0], history[1]);
       renderTable(history);
     }
 
