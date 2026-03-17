@@ -222,7 +222,11 @@ def save_data(balances: dict, detail: dict):
             history = json.load(f)
 
     today = datetime.now().strftime("%Y-%m-%d")
-    history = [h for h in history if h["date"] != today]
+    # 历史条目去掉 detail 字段（只保留最新一条带 detail）
+    history = [
+        {k: v for k, v in h.items() if k != "detail"}
+        for h in history if h["date"] != today
+    ]
     history.append({"date": today, "balances": balances, "detail": detail})
     history.sort(key=lambda x: x["date"], reverse=True)
 
