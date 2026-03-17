@@ -137,10 +137,71 @@
 
     td.null-val { color: #bbb; }
     td.num { font-variant-numeric: tabular-nums; }
+    td.has-detail { cursor: pointer; }
 
     .no-data {
       padding: 48px; text-align: center; color: #aaa; font-size: 15px;
     }
+
+    /* ── 悬浮弹窗 ── */
+    #tooltip {
+      position: fixed;
+      z-index: 9999;
+      background: #1a1a2e;
+      color: #e8eaf0;
+      border-radius: 10px;
+      padding: 12px 0 8px;
+      min-width: 340px;
+      max-width: 480px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.28);
+      font-size: 12px;
+      pointer-events: none;   /* 默认不拦截事件 */
+      opacity: 0;
+      transition: opacity .15s ease;
+    }
+    #tooltip.visible {
+      opacity: 1;
+      pointer-events: auto;   /* 显示后可点击 */
+    }
+    .tt-header {
+      font-size: 11px; font-weight: 700; color: #888;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: 0 14px 8px; border-bottom: 1px solid #2e2e4a;
+      margin-bottom: 4px;
+    }
+    .tt-row {
+      display: flex; align-items: center; gap: 0;
+      padding: 5px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: inherit;
+      transition: background .12s;
+    }
+    .tt-row:hover { background: #2a2a4a; }
+    .tt-addr {
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 11px; color: #a5b4fc; flex: 1;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .tt-bal {
+      font-weight: 700; color: #fff;
+      font-variant-numeric: tabular-nums;
+      margin-left: 12px; white-space: nowrap;
+    }
+    .tt-arrow {
+      color: #4f6ef7; margin-left: 8px; font-size: 13px;
+    }
+    .tt-error { color: #f87171; font-style: italic; }
+    .tt-divider {
+      border: none; border-top: 1px solid #2e2e4a;
+      margin: 6px 14px;
+    }
+    .tt-total {
+      display: flex; justify-content: space-between;
+      padding: 4px 14px;
+      font-size: 12px; color: #888;
+    }
+    .tt-total strong { color: #fff; font-variant-numeric: tabular-nums; }
   </style>
 </head>
 <body>
@@ -174,6 +235,9 @@
       暂无数据，请先运行 <code>python fetch_data.py</code>
     </div>
   </div>
+
+  <!-- 悬浮弹窗 DOM -->
+  <div id="tooltip"></div>
 
   <script src="data/data.js"></script>
   <script>
@@ -257,11 +321,64 @@
       document.getElementById("ex-cards").innerHTML = cardsHtml;
     }
 
+    /* ── 悬浮弹窗逻辑 ── */
+    const tooltip = document.getElementById("tooltip");
+    let hideTimer = null;
+
+    function showTooltip(el, rows, title) {
+      clearTimeout(hideTimer);
+      if (!rows || rows.length === 0) return;
+
+      const hasBalance = rows.some(r => r.balance !== null && r.balance > 0);
+      if (!hasBalance) return;
+
+      const total = rows.reduce((s, r) => s + (r.balance || 0), 0);
+      let inner = `<div class="tt-header">${title}</div>`;
+      rows.forEach(r => {
+        const short = r.addr.length > 16
+          ? r.addr.slice(0, 8) + "…" + r.addr.slice(-6)
+          : r.addr;
+        const balTxt = r.balance === null
+          ? `<span class="tt-error">查询失败</span>`
+          : `<span class="tt-bal">${r.balance.toLocaleString()}</span>`;
+        inner += `
+          <a class="tt-row" href="${r.url}" target="_blank">
+            <span class="tt-addr">${short}</span>
+            ${balTxt}
+            <span class="tt-arrow">↗</span>
+          </a>`;
+      });
+      if (rows.length > 1) {
+        inner += `<hr class="tt-divider">
+          <div class="tt-total"><span>合计</span><strong>${total.toLocaleString()}</strong></div>`;
+      }
+      tooltip.innerHTML = inner;
+
+      // 定位
+      const rect = el.getBoundingClientRect();
+      const tw = 360, th = tooltip.offsetHeight || 160;
+      let left = rect.right + 8;
+      let top  = rect.top + rect.height / 2 - th / 2;
+      if (left + tw > window.innerWidth - 12) left = rect.left - tw - 8;
+      if (top < 8) top = 8;
+      if (top + th > window.innerHeight - 8) top = window.innerHeight - th - 8;
+      tooltip.style.left = left + "px";
+      tooltip.style.top  = top  + "px";
+      tooltip.classList.add("visible");
+    }
+
+    function hideTooltip() {
+      hideTimer = setTimeout(() => tooltip.classList.remove("visible"), 120);
+    }
+
+    tooltip.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+    tooltip.addEventListener("mouseleave", hideTooltip);
+
     /* ── 历史表格 ── */
     function renderTable(history) {
       let html = "";
       history.forEach((entry, idx) => {
-        const { date, balances } = entry;
+        const { date, balances, detail } = entry;
         const totals     = calcTotals(balances);
         const prevEntry  = history[idx + 1];
         const prevBal    = prevEntry?.balances;
@@ -275,11 +392,16 @@
           row += `<td class="td-chain ${chainCls}">${chain}</td>`;
 
           EXCHANGES.forEach(ex => {
-            const val  = balances[ex]?.[chain];
-            const prev = prevBal?.[ex]?.[chain];
+            const val      = balances[ex]?.[chain];
+            const prev     = prevBal?.[ex]?.[chain];
+            const addrs    = detail?.[ex]?.[chain];
             const { text, cls } = fmt(val);
-            const chg  = absChgHtml(val, prev);
-            row += `<td class="${cls}">${text}${chg}</td>`;
+            const chg      = absChgHtml(val, prev);
+            const hasDet   = addrs && addrs.length > 0 && val;
+            const detAttr  = hasDet
+              ? ` data-ex="${ex}" data-chain="${chain}" data-date="${date}"`
+              : "";
+            row += `<td class="${cls}${hasDet ? " has-detail" : ""}"${detAttr}>${text}${chg}</td>`;
           });
 
           row += `</tr>`;
@@ -300,6 +422,17 @@
       });
 
       document.getElementById("tbody").innerHTML = html;
+
+      // 绑定悬浮事件（事件委托）
+      document.getElementById("tbody").addEventListener("mouseover", e => {
+        const td = e.target.closest("td.has-detail");
+        if (!td) return;
+        const { ex, chain, date } = td.dataset;
+        const entry = USDD_HISTORY.find(h => h.date === date);
+        const rows  = entry?.detail?.[ex]?.[chain];
+        showTooltip(td, rows, `${ex} · ${chain}`);
+      });
+      document.getElementById("tbody").addEventListener("mouseleave", hideTooltip);
     }
 
     /* ── 主入口 ── */

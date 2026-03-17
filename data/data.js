@@ -4,27 +4,27 @@ const USDD_HISTORY = [
     "date": "2026-03-17",
     "balances": {
       "HTX": {
-        "Tron": 18947961,
+        "Tron": 19237181,
         "ETH": 5431961,
-        "BNB": 3197377
+        "BNB": 3152977
       },
       "Gate": {
-        "Tron": 2466191,
+        "Tron": 2462730,
         "ETH": null,
         "BNB": null
       },
       "Kucoin": {
-        "Tron": 3771035,
+        "Tron": 3877032,
         "ETH": null,
         "BNB": null
       },
       "Bybit": {
-        "Tron": 1737030,
+        "Tron": 1736540,
         "ETH": null,
         "BNB": null
       },
       "Mexc": {
-        "Tron": 1393928,
+        "Tron": 1319305,
         "ETH": null,
         "BNB": null
       },
@@ -42,6 +42,171 @@ const USDD_HISTORY = [
         "Tron": 21318,
         "ETH": 50000,
         "BNB": 33470
+      }
+    },
+    "detail": {
+      "HTX": {
+        "Tron": [
+          {
+            "addr": "TDToUxX8sH4z6moQpK3ZLAN24eupu2ivA4",
+            "balance": 15752485,
+            "url": "https://tronscan.org/#/address/TDToUxX8sH4z6moQpK3ZLAN24eupu2ivA4"
+          },
+          {
+            "addr": "TK86Qm97uM848dMk8G7xNbJB7zG1uW3h1n",
+            "balance": 3274755,
+            "url": "https://tronscan.org/#/address/TK86Qm97uM848dMk8G7xNbJB7zG1uW3h1n"
+          },
+          {
+            "addr": "TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu",
+            "balance": 209941,
+            "url": "https://tronscan.org/#/address/TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu"
+          }
+        ],
+        "ETH": [
+          {
+            "addr": "0x18709e89bd403f470088abdacebe86cc60dda12e",
+            "balance": 3334000,
+            "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0x18709e89bd403f470088abdacebe86cc60dda12e"
+          },
+          {
+            "addr": "0xa03400e098f4421b34a3a44a1b4e571419517687",
+            "balance": 501961,
+            "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0xa03400e098f4421b34a3a44a1b4e571419517687"
+          },
+          {
+            "addr": "0x4fb312915b779b1339388e14b6d079741ca83128",
+            "balance": 1596000,
+            "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0x4fb312915b779b1339388e14b6d079741ca83128"
+          }
+        ],
+        "BNB": [
+          {
+            "addr": "0xafdfd157d9361e621e476036fee62f688450692b",
+            "balance": 2714000,
+            "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xafdfd157d9361e621e476036fee62f688450692b"
+          },
+          {
+            "addr": "0x18709e89bd403f470088abdacebe86cc60dda12e",
+            "balance": 314000,
+            "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0x18709e89bd403f470088abdacebe86cc60dda12e"
+          },
+          {
+            "addr": "0xdd3cb5c974601bc3974d908ea4a86020f9999e0c",
+            "balance": 124977,
+            "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xdd3cb5c974601bc3974d908ea4a86020f9999e0c"
+          }
+        ]
+      },
+      "Gate": {
+        "Tron": [
+          {
+            "addr": "TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt",
+            "balance": 2462730,
+            "url": "https://tronscan.org/#/address/TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt"
+          }
+        ],
+        "ETH": [],
+        "BNB": []
+      },
+      "Kucoin": {
+        "Tron": [
+          {
+            "addr": "TL17qUCWc9ZRjYvxyihC3uteUCYBn48S3S",
+            "balance": 2694798,
+            "url": "https://tronscan.org/#/address/TL17qUCWc9ZRjYvxyihC3uteUCYBn48S3S"
+          },
+          {
+            "addr": "TUFhdQLH8MLCN9fVpiJ5pHVPbED3x8ZF5V",
+            "balance": 800564,
+            "url": "https://tronscan.org/#/address/TUFhdQLH8MLCN9fVpiJ5pHVPbED3x8ZF5V"
+          },
+          {
+            "addr": "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
+            "balance": 381670,
+            "url": "https://tronscan.org/#/address/TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9"
+          }
+        ],
+        "ETH": [],
+        "BNB": []
+      },
+      "Bybit": {
+        "Tron": [
+          {
+            "addr": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+            "balance": 1736540,
+            "url": "https://tronscan.org/#/address/TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa"
+          }
+        ],
+        "ETH": [],
+        "BNB": []
+      },
+      "Mexc": {
+        "Tron": [
+          {
+            "addr": "TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn",
+            "balance": 1319305,
+            "url": "https://tronscan.org/#/address/TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn"
+          }
+        ],
+        "ETH": [],
+        "BNB": []
+      },
+      "Poloniex": {
+        "Tron": [
+          {
+            "addr": "TUgSgCQL6pMSy9zByn4sgxqrJa95sZExBG",
+            "balance": 643664,
+            "url": "https://tronscan.org/#/address/TUgSgCQL6pMSy9zByn4sgxqrJa95sZExBG"
+          }
+        ],
+        "ETH": [
+          {
+            "addr": "0x29065a4c1f2f20d1e263930088890d6f49fe715a",
+            "balance": 170000,
+            "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0x29065a4c1f2f20d1e263930088890d6f49fe715a"
+          },
+          {
+            "addr": "0x8fca4ade3a517133ff23ca55cdaea29c78c990b8",
+            "balance": 14975,
+            "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0x8fca4ade3a517133ff23ca55cdaea29c78c990b8"
+          }
+        ],
+        "BNB": []
+      },
+      "Kraken": {
+        "Tron": [
+          {
+            "addr": "TG2CMGxnTPgQ6V58kiKd7wbyN8ewtAmY76",
+            "balance": 164389,
+            "url": "https://tronscan.org/#/address/TG2CMGxnTPgQ6V58kiKd7wbyN8ewtAmY76"
+          }
+        ],
+        "ETH": [],
+        "BNB": []
+      },
+      "Bitmart": {
+        "Tron": [
+          {
+            "addr": "TA7jHA7BR17Sv4vdV2Thx2wJaiUGHNybzU",
+            "balance": 21318,
+            "url": "https://tronscan.org/#/address/TA7jHA7BR17Sv4vdV2Thx2wJaiUGHNybzU"
+          }
+        ],
+        "ETH": [
+          {
+            "addr": "0x6d0d19bdddc5ed1dd501430c9621dd37ebd9062d",
+            "balance": 50000,
+            "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0x6d0d19bdddc5ed1dd501430c9621dd37ebd9062d"
+          }
+        ],
+        "BNB": [
+          {
+            "addr": "0xa23ef2319ba4c933ebfdba80c332664a6cb13f1a",
+            "balance": 33470,
+            "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xa23ef2319ba4c933ebfdba80c332664a6cb13f1a"
+          }
+        ]
       }
     }
   },

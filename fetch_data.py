@@ -154,18 +154,35 @@ def get_evm_usdd_balance(chain: str, wallet: str, retries: int = 3) -> float | N
                 return None
 
 
+# ─── 浏览器链接生成 ────────────────────────────────────────────────────────────
+
+def explorer_url(chain: str, addr: str) -> str:
+    if chain == "Tron":
+        return f"https://tronscan.org/#/address/{addr}"
+    elif chain == "ETH":
+        return f"https://etherscan.io/token/{USDD_CONTRACT['ETH']}?a={addr}"
+    elif chain == "BNB":
+        return f"https://bscscan.com/token/{USDD_CONTRACT['BNB']}?a={addr}"
+    return ""
+
+
 # ─── 主逻辑 ───────────────────────────────────────────────────────────────────
 
-def fetch_all_balances() -> dict:
-    result = {}
+def fetch_all_balances() -> tuple[dict, dict]:
+    """返回 (balances合计, detail每地址明细)"""
+    balances = {}
+    detail   = {}
     for ex in EXCHANGE_LIST:
-        result[ex] = {}
+        balances[ex] = {}
+        detail[ex]   = {}
         for chain in CHAIN_LIST:
             addrs = EXCHANGES[ex].get(chain, [])
             if not addrs:
-                result[ex][chain] = None
+                balances[ex][chain] = None
+                detail[ex][chain]   = []
                 continue
             total, has_error = 0.0, False
+            addr_details = []
             for addr in addrs:
                 print(f"  → {ex} / {chain} / {addr[:12]}…")
                 if chain == "Tron":
@@ -174,14 +191,25 @@ def fetch_all_balances() -> dict:
                     bal = get_evm_usdd_balance(chain, addr)
                 if bal is None:
                     has_error = True
+                    addr_details.append({
+                        "addr": addr,
+                        "balance": None,
+                        "url": explorer_url(chain, addr),
+                    })
                 else:
                     total += bal
-                time.sleep(0.4)   # 避免限速
-            result[ex][chain] = None if has_error else round(total)
-    return result
+                    addr_details.append({
+                        "addr": addr,
+                        "balance": round(bal),
+                        "url": explorer_url(chain, addr),
+                    })
+                time.sleep(0.4)
+            balances[ex][chain] = None if has_error else round(total)
+            detail[ex][chain]   = addr_details
+    return balances, detail
 
 
-def save_data(balances: dict):
+def save_data(balances: dict, detail: dict):
     base = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(base, "data")
     os.makedirs(data_dir, exist_ok=True)
@@ -195,7 +223,7 @@ def save_data(balances: dict):
 
     today = datetime.now().strftime("%Y-%m-%d")
     history = [h for h in history if h["date"] != today]
-    history.append({"date": today, "balances": balances})
+    history.append({"date": today, "balances": balances, "detail": detail})
     history.sort(key=lambda x: x["date"], reverse=True)
 
     with open(history_path, "w", encoding="utf-8") as f:
@@ -227,9 +255,9 @@ def print_summary(balances: dict):
 
 def main():
     print("🔍 开始抓取 USDD 余额...\n")
-    balances = fetch_all_balances()
+    balances, detail = fetch_all_balances()
     print_summary(balances)
-    save_data(balances)
+    save_data(balances, detail)
     print("📊 打开 index.html 查看看板\n")
 
 
