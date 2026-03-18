@@ -1,11 +1,11 @@
 [
   {
-    "date": "2026-03-18",
+    "date": "2026-03-19",
     "balances": {
       "HTX": {
-        "Tron": 20090276,
-        "ETH": 5452350,
-        "BNB": 3048978
+        "Tron": 20297105,
+        "ETH": 4752326,
+        "BNB": 2998978
       },
       "Gate": {
         "Tron": 2469246,
@@ -13,7 +13,7 @@
         "BNB": null
       },
       "Kucoin": {
-        "Tron": 3512344,
+        "Tron": 3965168,
         "ETH": null,
         "BNB": null
       },
@@ -23,7 +23,7 @@
         "BNB": null
       },
       "Mexc": {
-        "Tron": 1105806,
+        "Tron": 1095825,
         "ETH": null,
         "BNB": null
       },
@@ -53,12 +53,12 @@
           },
           {
             "addr": "TK86Qm97uM848dMk8G7xNbJB7zG1uW3h1n",
-            "balance": 3994755,
+            "balance": 4299755,
             "url": "https://tronscan.org/#/address/TK86Qm97uM848dMk8G7xNbJB7zG1uW3h1n"
           },
           {
             "addr": "TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu",
-            "balance": 343036,
+            "balance": 244866,
             "url": "https://tronscan.org/#/address/TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu"
           }
         ],
@@ -70,19 +70,19 @@
           },
           {
             "addr": "0xa03400e098f4421b34a3a44a1b4e571419517687",
-            "balance": 522350,
+            "balance": 499326,
             "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0xa03400e098f4421b34a3a44a1b4e571419517687"
           },
           {
             "addr": "0x4fb312915b779b1339388e14b6d079741ca83128",
-            "balance": 1596000,
+            "balance": 919000,
             "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0x4fb312915b779b1339388e14b6d079741ca83128"
           }
         ],
         "BNB": [
           {
             "addr": "0xafdfd157d9361e621e476036fee62f688450692b",
-            "balance": 2714000,
+            "balance": 1964000,
             "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xafdfd157d9361e621e476036fee62f688450692b"
           },
           {
@@ -92,7 +92,7 @@
           },
           {
             "addr": "0xdd3cb5c974601bc3974d908ea4a86020f9999e0c",
-            "balance": 20978,
+            "balance": 720978,
             "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xdd3cb5c974601bc3974d908ea4a86020f9999e0c"
           }
         ]
@@ -122,7 +122,7 @@
           },
           {
             "addr": "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
-            "balance": 16983,
+            "balance": 469806,
             "url": "https://tronscan.org/#/address/TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9"
           }
         ],
@@ -144,7 +144,7 @@
         "Tron": [
           {
             "addr": "TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn",
-            "balance": 1105806,
+            "balance": 1095825,
             "url": "https://tronscan.org/#/address/TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn"
           }
         ],
@@ -206,6 +206,51 @@
             "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xa23ef2319ba4c933ebfdba80c332664a6cb13f1a"
           }
         ]
+      }
+    }
+  },
+  {
+    "date": "2026-03-18",
+    "balances": {
+      "HTX": {
+        "Tron": 20090276,
+        "ETH": 5452350,
+        "BNB": 3048978
+      },
+      "Gate": {
+        "Tron": 2469246,
+        "ETH": null,
+        "BNB": null
+      },
+      "Kucoin": {
+        "Tron": 3512344,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bybit": {
+        "Tron": 1736272,
+        "ETH": null,
+        "BNB": null
+      },
+      "Mexc": {
+        "Tron": 1105806,
+        "ETH": null,
+        "BNB": null
+      },
+      "Poloniex": {
+        "Tron": 643664,
+        "ETH": 184975,
+        "BNB": null
+      },
+      "Kraken": {
+        "Tron": 164389,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bitmart": {
+        "Tron": 21318,
+        "ETH": 50000,
+        "BNB": 33770
       }
     }
   },
