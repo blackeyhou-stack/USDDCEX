@@ -428,14 +428,16 @@
       document.getElementById("tbody").innerHTML = html;
 
       // 绑定悬浮事件（只在数字 span 上触发，不含空白 padding）
-      document.getElementById("tbody").addEventListener("mouseover", e => {
+      const tbody = document.getElementById("tbody");
+      tbody.addEventListener("mouseover", e => {
         const span = e.target.closest("span.det-trigger");
-        if (!span) { hideTooltip(); return; }
+        if (!span) return;
         const { ex, chain, date } = span.dataset;
         const entry = USDD_HISTORY.find(h => h.date === date);
         const rows  = entry?.detail?.[ex]?.[chain];
         showTooltip(span, rows, `${ex} · ${chain}`);
       });
+      tbody.addEventListener("mouseleave", hideTooltip);
     }
 
     /* ── 主入口 ── */
