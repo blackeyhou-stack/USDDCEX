@@ -4,27 +4,27 @@ const USDD_HISTORY = [
     "date": "2026-03-18",
     "balances": {
       "HTX": {
-        "Tron": 19893879,
-        "ETH": 2092237,
+        "Tron": 20090276,
+        "ETH": 5452350,
         "BNB": 3048978
       },
       "Gate": {
-        "Tron": 2462730,
+        "Tron": 2469246,
         "ETH": null,
         "BNB": null
       },
       "Kucoin": {
-        "Tron": 3852171,
+        "Tron": 3512344,
         "ETH": null,
         "BNB": null
       },
       "Bybit": {
-        "Tron": 1736540,
+        "Tron": 1736272,
         "ETH": null,
         "BNB": null
       },
       "Mexc": {
-        "Tron": 1174846,
+        "Tron": 1105806,
         "ETH": null,
         "BNB": null
       },
@@ -54,24 +54,24 @@ const USDD_HISTORY = [
           },
           {
             "addr": "TK86Qm97uM848dMk8G7xNbJB7zG1uW3h1n",
-            "balance": 3274755,
+            "balance": 3994755,
             "url": "https://tronscan.org/#/address/TK86Qm97uM848dMk8G7xNbJB7zG1uW3h1n"
           },
           {
             "addr": "TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu",
-            "balance": 866639,
+            "balance": 343036,
             "url": "https://tronscan.org/#/address/TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu"
           }
         ],
         "ETH": [
           {
             "addr": "0x18709e89bd403f470088abdacebe86cc60dda12e",
-            "balance": 0,
+            "balance": 3334000,
             "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0x18709e89bd403f470088abdacebe86cc60dda12e"
           },
           {
             "addr": "0xa03400e098f4421b34a3a44a1b4e571419517687",
-            "balance": 496237,
+            "balance": 522350,
             "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0xa03400e098f4421b34a3a44a1b4e571419517687"
           },
           {
@@ -102,7 +102,7 @@ const USDD_HISTORY = [
         "Tron": [
           {
             "addr": "TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt",
-            "balance": 2462730,
+            "balance": 2469246,
             "url": "https://tronscan.org/#/address/TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt"
           }
         ],
@@ -123,7 +123,7 @@ const USDD_HISTORY = [
           },
           {
             "addr": "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
-            "balance": 356810,
+            "balance": 16983,
             "url": "https://tronscan.org/#/address/TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9"
           }
         ],
@@ -134,7 +134,7 @@ const USDD_HISTORY = [
         "Tron": [
           {
             "addr": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
-            "balance": 1736540,
+            "balance": 1736272,
             "url": "https://tronscan.org/#/address/TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa"
           }
         ],
@@ -145,7 +145,7 @@ const USDD_HISTORY = [
         "Tron": [
           {
             "addr": "TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn",
-            "balance": 1174846,
+            "balance": 1105806,
             "url": "https://tronscan.org/#/address/TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn"
           }
         ],

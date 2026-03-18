@@ -123,8 +123,8 @@ def get_evm_usdd_balance(chain: str, wallet: str, retries: int = 3) -> float | N
     rpc_list = {
         "ETH": [
             "https://eth.llamarpc.com",
-            "https://rpc.ankr.com/eth",
             "https://ethereum.publicnode.com",
+            "https://1rpc.io/eth",
         ],
         "BNB": [
             "https://bsc-dataseed.binance.org/",
