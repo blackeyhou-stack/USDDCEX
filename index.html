@@ -137,7 +137,8 @@
 
     td.null-val { color: #bbb; }
     td.num { font-variant-numeric: tabular-nums; }
-    td.has-detail { cursor: pointer; }
+    td.has-detail { cursor: default; }
+    .det-trigger { cursor: pointer; display: inline-block; }
 
     .no-data {
       padding: 48px; text-align: center; color: #aaa; font-size: 15px;
@@ -357,7 +358,7 @@
       // 定位
       const rect = el.getBoundingClientRect();
       const tw = 360, th = tooltip.offsetHeight || 160;
-      let left = rect.right + 8;
+      let left = rect.right + 2;
       let top  = rect.top + rect.height / 2 - th / 2;
       if (left + tw > window.innerWidth - 12) left = rect.left - tw - 8;
       if (top < 8) top = 8;
@@ -368,7 +369,7 @@
     }
 
     function hideTooltip() {
-      hideTimer = setTimeout(() => tooltip.classList.remove("visible"), 120);
+      hideTimer = setTimeout(() => tooltip.classList.remove("visible"), 350);
     }
 
     tooltip.addEventListener("mouseenter", () => clearTimeout(hideTimer));
@@ -399,9 +400,12 @@
             const chg      = absChgHtml(val, prev);
             const hasDet   = addrs && addrs.length > 0 && val;
             const detAttr  = hasDet
-              ? ` data-ex="${ex}" data-chain="${chain}" data-date="${date}"`
+              ? ` class="det-trigger" data-ex="${ex}" data-chain="${chain}" data-date="${date}"`
               : "";
-            row += `<td class="${cls}${hasDet ? " has-detail" : ""}"${detAttr}>${text}${chg}</td>`;
+            const inner    = hasDet
+              ? `<span${detAttr}>${text}</span>${chg}`
+              : `${text}${chg}`;
+            row += `<td class="${cls}${hasDet ? " has-detail" : ""}">${inner}</td>`;
           });
 
           row += `</tr>`;
@@ -423,16 +427,15 @@
 
       document.getElementById("tbody").innerHTML = html;
 
-      // 绑定悬浮事件（事件委托）
+      // 绑定悬浮事件（只在数字 span 上触发，不含空白 padding）
       document.getElementById("tbody").addEventListener("mouseover", e => {
-        const td = e.target.closest("td.has-detail");
-        if (!td) return;
-        const { ex, chain, date } = td.dataset;
+        const span = e.target.closest("span.det-trigger");
+        if (!span) { hideTooltip(); return; }
+        const { ex, chain, date } = span.dataset;
         const entry = USDD_HISTORY.find(h => h.date === date);
         const rows  = entry?.detail?.[ex]?.[chain];
-        showTooltip(td, rows, `${ex} · ${chain}`);
+        showTooltip(span, rows, `${ex} · ${chain}`);
       });
-      document.getElementById("tbody").addEventListener("mouseleave", hideTooltip);
     }
 
     /* ── 主入口 ── */
