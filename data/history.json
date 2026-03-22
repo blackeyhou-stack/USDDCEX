@@ -1,10 +1,10 @@
 [
   {
-    "date": "2026-03-22",
+    "date": "2026-03-23",
     "balances": {
       "HTX": {
-        "Tron": 20820670,
-        "ETH": 4383273,
+        "Tron": 20787743,
+        "ETH": 4385388,
         "BNB": 3002403
       },
       "Gate": {
@@ -13,17 +13,17 @@
         "BNB": null
       },
       "Kucoin": {
-        "Tron": 3818136,
+        "Tron": 3768648,
         "ETH": null,
         "BNB": null
       },
       "Bybit": {
-        "Tron": 1735620,
+        "Tron": 1791222,
         "ETH": null,
         "BNB": null
       },
       "Mexc": {
-        "Tron": 1070968,
+        "Tron": 1065717,
         "ETH": null,
         "BNB": null
       },
@@ -58,7 +58,7 @@
           },
           {
             "addr": "TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu",
-            "balance": 201430,
+            "balance": 168503,
             "url": "https://tronscan.org/#/address/TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu"
           }
         ],
@@ -70,7 +70,7 @@
           },
           {
             "addr": "0xa03400e098f4421b34a3a44a1b4e571419517687",
-            "balance": 130273,
+            "balance": 132388,
             "url": "https://etherscan.io/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a?a=0xa03400e098f4421b34a3a44a1b4e571419517687"
           },
           {
@@ -122,7 +122,7 @@
           },
           {
             "addr": "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
-            "balance": 322775,
+            "balance": 273286,
             "url": "https://tronscan.org/#/address/TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9"
           }
         ],
@@ -133,7 +133,7 @@
         "Tron": [
           {
             "addr": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
-            "balance": 1735620,
+            "balance": 1791222,
             "url": "https://tronscan.org/#/address/TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa"
           }
         ],
@@ -144,7 +144,7 @@
         "Tron": [
           {
             "addr": "TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn",
-            "balance": 1070968,
+            "balance": 1065717,
             "url": "https://tronscan.org/#/address/TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn"
           }
         ],
@@ -206,6 +206,51 @@
             "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xa23ef2319ba4c933ebfdba80c332664a6cb13f1a"
           }
         ]
+      }
+    }
+  },
+  {
+    "date": "2026-03-22",
+    "balances": {
+      "HTX": {
+        "Tron": 20820670,
+        "ETH": 4383273,
+        "BNB": 3002403
+      },
+      "Gate": {
+        "Tron": 2504101,
+        "ETH": null,
+        "BNB": null
+      },
+      "Kucoin": {
+        "Tron": 3818136,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bybit": {
+        "Tron": 1735620,
+        "ETH": null,
+        "BNB": null
+      },
+      "Mexc": {
+        "Tron": 1070968,
+        "ETH": null,
+        "BNB": null
+      },
+      "Poloniex": {
+        "Tron": 643664,
+        "ETH": 184975,
+        "BNB": null
+      },
+      "Kraken": {
+        "Tron": 174389,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bitmart": {
+        "Tron": 21318,
+        "ETH": 50000,
+        "BNB": 30838
       }
     }
   },
