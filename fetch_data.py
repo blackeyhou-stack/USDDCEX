@@ -50,9 +50,14 @@ EXCHANGES = {
     },
     "Kucoin": {
         "Tron": [
-            "TL17qUCWc9ZRjYvxyihC3uteUCYBn48S3S",
+            "TPgmFH49WwbnkwFCJ72GGccWYp5w9iX8vS",
             "TUFhdQLH8MLCN9fVpiJ5pHVPbED3x8ZF5V",
+            "TL17qUCWc9ZRjYvxyihC3uteUCYBn48S3S",
+            "TQeNNo5zVarhdKm5EiJSekfNXg6H1tRN4n",
             "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
+            "TRYL7PKCG4b4xRCM554Q5J6o8f1UjUmfnY",
+            "TSGEXDSRMtzt9swPSgzr8MKefcgEawEdmb",
+            "TGeCMTmmQKBrs8Vmx7YNGbPa2d3ZspDLNN",
         ],
         "ETH": [],
         "BNB": [],
