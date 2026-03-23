@@ -1,24 +1,24 @@
 [
   {
-    "date": "2026-03-23",
+    "date": "2026-03-24",
     "balances": {
       "HTX": {
-        "Tron": 20686150,
+        "Tron": 20860043,
         "ETH": 4385388,
         "BNB": 3002403
       },
       "Gate": {
-        "Tron": 2527501,
+        "Tron": 2477022,
         "ETH": null,
         "BNB": null
       },
       "Kucoin": {
-        "Tron": 7993173,
+        "Tron": 7892772,
         "ETH": null,
         "BNB": null
       },
       "Bybit": {
-        "Tron": 1791744,
+        "Tron": 1791963,
         "ETH": null,
         "BNB": null
       },
@@ -58,7 +58,7 @@
           },
           {
             "addr": "TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu",
-            "balance": 178911,
+            "balance": 352804,
             "url": "https://tronscan.org/#/address/TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu"
           }
         ],
@@ -101,7 +101,7 @@
         "Tron": [
           {
             "addr": "TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt",
-            "balance": 2527501,
+            "balance": 2477022,
             "url": "https://tronscan.org/#/address/TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt"
           }
         ],
@@ -132,7 +132,7 @@
           },
           {
             "addr": "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
-            "balance": 273286,
+            "balance": 172885,
             "url": "https://tronscan.org/#/address/TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9"
           },
           {
@@ -158,7 +158,7 @@
         "Tron": [
           {
             "addr": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
-            "balance": 1791744,
+            "balance": 1791963,
             "url": "https://tronscan.org/#/address/TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa"
           }
         ],
@@ -231,6 +231,51 @@
             "url": "https://bscscan.com/token/0x45E51bc23D592EB2DBA86da3985299f7895d66Ba?a=0xa23ef2319ba4c933ebfdba80c332664a6cb13f1a"
           }
         ]
+      }
+    }
+  },
+  {
+    "date": "2026-03-23",
+    "balances": {
+      "HTX": {
+        "Tron": 20686150,
+        "ETH": 4385388,
+        "BNB": 3002403
+      },
+      "Gate": {
+        "Tron": 2527501,
+        "ETH": null,
+        "BNB": null
+      },
+      "Kucoin": {
+        "Tron": 7993173,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bybit": {
+        "Tron": 1791744,
+        "ETH": null,
+        "BNB": null
+      },
+      "Mexc": {
+        "Tron": 1064561,
+        "ETH": null,
+        "BNB": null
+      },
+      "Poloniex": {
+        "Tron": 643664,
+        "ETH": 184975,
+        "BNB": null
+      },
+      "Kraken": {
+        "Tron": 174389,
+        "ETH": null,
+        "BNB": null
+      },
+      "Bitmart": {
+        "Tron": 21318,
+        "ETH": 50000,
+        "BNB": 30838
       }
     }
   },
