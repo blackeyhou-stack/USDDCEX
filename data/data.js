@@ -4,12 +4,12 @@ const USDD_HISTORY = [
     "date": "2026-03-23",
     "balances": {
       "HTX": {
-        "Tron": 20787743,
+        "Tron": 20734971,
         "ETH": 4385388,
         "BNB": 3002403
       },
       "Gate": {
-        "Tron": 2504101,
+        "Tron": 2527501,
         "ETH": null,
         "BNB": null
       },
@@ -19,12 +19,12 @@ const USDD_HISTORY = [
         "BNB": null
       },
       "Bybit": {
-        "Tron": 1791222,
+        "Tron": 1791744,
         "ETH": null,
         "BNB": null
       },
       "Mexc": {
-        "Tron": 1065717,
+        "Tron": 1064561,
         "ETH": null,
         "BNB": null
       },
@@ -59,7 +59,7 @@ const USDD_HISTORY = [
           },
           {
             "addr": "TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu",
-            "balance": 168503,
+            "balance": 115731,
             "url": "https://tronscan.org/#/address/TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu"
           }
         ],
@@ -102,7 +102,7 @@ const USDD_HISTORY = [
         "Tron": [
           {
             "addr": "TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt",
-            "balance": 2504101,
+            "balance": 2527501,
             "url": "https://tronscan.org/#/address/TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt"
           }
         ],
@@ -134,7 +134,7 @@ const USDD_HISTORY = [
         "Tron": [
           {
             "addr": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
-            "balance": 1791222,
+            "balance": 1791744,
             "url": "https://tronscan.org/#/address/TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa"
           }
         ],
@@ -145,7 +145,7 @@ const USDD_HISTORY = [
         "Tron": [
           {
             "addr": "TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn",
-            "balance": 1065717,
+            "balance": 1064561,
             "url": "https://tronscan.org/#/address/TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn"
           }
         ],
