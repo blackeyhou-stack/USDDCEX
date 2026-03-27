@@ -9,6 +9,7 @@ import json
 import os
 import time
 from datetime import datetime
+from typing import Optional
 
 # ─── USDD 合约地址 ────────────────────────────────────────────────────────────
 USDD_CONTRACT = {
@@ -98,7 +99,7 @@ CHAIN_LIST    = ["Tron", "ETH", "BNB"]
 
 # ─── 链上查询函数 ──────────────────────────────────────────────────────────────
 
-def get_tron_usdd_balance(address: str, retries: int = 3) -> float | None:
+def get_tron_usdd_balance(address: str, retries: int = 3) -> Optional[float]:
     """通过 Trongrid API 获取 Tron 地址的 USDD 余额（自动重试）"""
     for attempt in range(1, retries + 1):
         try:
@@ -122,7 +123,7 @@ def get_tron_usdd_balance(address: str, retries: int = 3) -> float | None:
                 return None
 
 
-def get_evm_usdd_balance(chain: str, wallet: str, retries: int = 3) -> float | None:
+def get_evm_usdd_balance(chain: str, wallet: str, retries: int = 3) -> Optional[float]:
     """通过公共 RPC 获取 ETH/BSC 地址的 USDD 余额（自动重试，备用节点）"""
     # 备用 RPC 节点列表
     rpc_list = {
